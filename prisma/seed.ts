@@ -25,14 +25,16 @@ async function seed() {
         professionalTitle: "Oral & Maxillofacial Surgeon",
         phone: "+8801716-200358",
         email: "dr.tasrif@gmail.com",
-        address: "196 Green Road, Dhaka, Bangladesh, 1205",
+        address: "196 Green Road, Dhaka, Bangladesh, Dhaka-1205",
       },
     },
     update: {},
   });
 
   if (!email) {
-    console.log("Site settings seeded; administrator provisioning awaits ADMIN_EMAIL.");
+    console.log(
+      "Site settings seeded; administrator provisioning awaits ADMIN_EMAIL.",
+    );
   }
 }
 
