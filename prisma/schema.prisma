@@ -1,3 +1,4 @@
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -26,6 +27,8 @@ model AdminUser {
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("admin_users")
 }
 
 model AppointmentBooking {
@@ -53,6 +56,7 @@ model SiteSection {
   updatedAt    DateTime @updatedAt
 
   @@index([isPublished, displayOrder])
+  @@map("site_sections")
 }
 
 model SiteSettings {
@@ -60,6 +64,8 @@ model SiteSettings {
   content   Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("site_settings")
 }
 
 model Service {
@@ -71,9 +77,10 @@ model Service {
   isPublished  Boolean  @default(true)
   displayOrder Int      @default(0)
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  updatedAt   DateTime @updatedAt
 
   @@index([isPublished, displayOrder])
+  @@map("services")
 }
 
 model Achievement {
@@ -88,6 +95,7 @@ model Achievement {
   updatedAt    DateTime  @updatedAt
 
   @@index([isPublished, displayOrder])
+  @@map("achievements")
 }
 
 model Publication {
@@ -102,15 +110,18 @@ model Publication {
   updatedAt    DateTime  @updatedAt
 
   @@index([isPublished, displayOrder])
+  @@map("publications")
 }
 
 model BlogCategory {
-  id        String     @id @default(cuid())
-  slug      String     @unique
-  content   Json
-  posts     BlogPost[]
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id         String     @id @default(cuid())
+  slug       String     @unique
+  content    Json
+  posts      BlogPost[]
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+
+  @@map("blog_categories")
 }
 
 model BlogPost {
@@ -133,6 +144,7 @@ model BlogPost {
 
   @@index([status, publishedAt])
   @@index([categoryId])
+  @@map("blog_posts")
 }
 
 model FAQ {
@@ -144,6 +156,7 @@ model FAQ {
   updatedAt    DateTime @updatedAt
 
   @@index([isPublished, displayOrder])
+  @@map("faqs")
 }
 
 model Testimonial {
@@ -157,6 +170,7 @@ model Testimonial {
   updatedAt    DateTime @updatedAt
 
   @@index([isPublished, displayOrder])
+  @@map("testimonials")
 }
 
 model BeforeAfterCase {
@@ -174,6 +188,7 @@ model BeforeAfterCase {
   @@index([isPublished, displayOrder])
   @@index([beforeImageId])
   @@index([afterImageId])
+  @@map("before_after_cases")
 }
 
 model GalleryItem {
@@ -188,24 +203,26 @@ model GalleryItem {
 
   @@index([isPublished, displayOrder])
   @@index([imageId])
+  @@map("gallery_items")
 }
 
 model Media {
-  id        String     @id @default(cuid())
-  url       String
-  publicId  String     @unique
-  altText   Json
-  fileName  String
-  format    String
-  width     Int?
-  height    Int?
-  bytes     Int?
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  blogPosts BlogPost[] @relation("BlogFeaturedImage")
+  id                String            @id @default(cuid())
+  url               String
+  publicId          String            @unique
+  altText           Json
+  fileName          String
+  format            String
+  width             Int?
+  height            Int?
+  bytes             Int?
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+  blogPosts         BlogPost[]        @relation("BlogFeaturedImage")
   beforeAfterBefore BeforeAfterCase[] @relation("BeforeAfterBefore")
   beforeAfterAfter  BeforeAfterCase[] @relation("BeforeAfterAfter")
-  galleryItems GalleryItem[]
+  galleryItems      GalleryItem[]
 
   @@index([createdAt])
+  @@map("media")
 }

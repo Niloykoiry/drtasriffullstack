@@ -1,0 +1,13 @@
+ALTER TABLE "AdminUser" RENAME TO "admin_users";
+ALTER TABLE "SiteSection" RENAME TO "site_sections";
+ALTER TABLE "SiteSettings" RENAME TO "site_settings";
+ALTER TABLE "Service" RENAME TO "services";
+ALTER TABLE "Achievement" RENAME TO "achievements";
+ALTER TABLE "Publication" RENAME TO "publications";
+ALTER TABLE "BlogCategory" RENAME TO "blog_categories";
+ALTER TABLE "BlogPost" RENAME TO "blog_posts";
+ALTER TABLE "FAQ" RENAME TO "faqs";
+ALTER TABLE "Testimonial" RENAME TO "testimonials";
+ALTER TABLE "BeforeAfterCase" RENAME TO "before_after_cases";
+ALTER TABLE "GalleryItem" RENAME TO "gallery_items";
+ALTER TABLE "Media" RENAME TO "media";
