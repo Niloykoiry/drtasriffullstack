@@ -166,7 +166,7 @@ const en = {
       },
       {
         overview:
-          "A range of other oral and maxillofacial conditions are managed with the same patient-first approach.",
+          "A range of other Oral and Maxillofacial conditions are managed with the same patient-first approach.",
         points: [
           "Cleft lip & palate care",
           "Temporomandibular joint (TMJ) conditions",
