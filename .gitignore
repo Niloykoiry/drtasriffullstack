@@ -12,3 +12,5 @@ npm-debug.log*
 .neon
 next-env.d.ts
 .neon
+.vercel
+.env*
