@@ -1,5 +1,6 @@
 import { CalendarDays, Clock3, Mail, Phone } from "lucide-react";
 import { db } from "@/lib/db";
+import AppointmentStatusSelect from "@/components/admin/AppointmentStatusSelect";
 
 function getDhakaToday() {
   const parts = new Intl.DateTimeFormat("en-CA", {
@@ -61,17 +62,12 @@ export default async function AdminAppointmentsPage() {
                     {appointment.reason || "Reason not provided"}
                   </p>
                 </div>
-                <span
-                  className={`rounded-full px-2.5 py-1 text-xs font-semibold ${
-                    appointment.status === "CONFIRMED"
-                      ? "bg-emerald-50 text-emerald-700"
-                      : "bg-amber-50 text-amber-700"
-                  }`}
-                >
-                  {appointment.status === "CONFIRMED"
-                    ? "Confirmed"
-                    : "Pending confirmation"}
-                </span>
+                <AppointmentStatusSelect
+                  appointmentId={appointment.id}
+                  initialStatus={
+                    appointment.status === "CONFIRMED" ? "CONFIRMED" : "PENDING"
+                  }
+                />
               </div>
               <div className="mt-4 grid gap-3 border-t border-slate-100 pt-4 text-sm text-slate-600 sm:grid-cols-2">
                 <p className="flex items-center gap-2">

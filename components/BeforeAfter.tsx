@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowDown, ArrowUp, Images, MoveHorizontal } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Images,
+  MoveHorizontal,
+} from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { fadeUp, stagger } from "@/lib/motion";
 
@@ -41,12 +46,14 @@ function CompareCard({
   desc,
   note,
   labels,
+  className,
 }: {
   before: string;
   after: string;
   title: string;
   desc: string;
   note: string;
+  className: string;
   labels: { before: string; after: string; drag: string };
 }) {
   const [pos, setPos] = useState(50);
@@ -54,7 +61,7 @@ function CompareCard({
   return (
     <motion.article
       variants={fadeUp}
-      className="glass overflow-hidden rounded-3xl bg-white/70 p-3 shadow-soft"
+      className={`${className} glass overflow-hidden rounded-3xl bg-white/70 p-3 shadow-soft`}
     >
       <div className="relative aspect-[4/3] select-none overflow-hidden rounded-2xl">
         <Image
@@ -116,7 +123,7 @@ export default function BeforeAfter({
   cases?: BeforeAfterCase[];
 }) {
   const { t, lang } = useI18n();
-  const [showAll, setShowAll] = useState(false);
+  const scroller = useRef<HTMLDivElement>(null);
   if (publishedCases?.length === 0) return null;
 
   const allCases = publishedCases
@@ -134,7 +141,10 @@ export default function BeforeAfter({
         title: item.title,
         desc: item.desc,
       }));
-  const cases = showAll ? allCases : allCases.slice(0, 2);
+  const scroll = (dir: number) => {
+    const element = scroller.current;
+    element?.scrollBy({ left: dir * element.clientWidth, behavior: "smooth" });
+  };
 
   return (
     <section id="before-after" className="bg-white py-24">
@@ -157,8 +167,33 @@ export default function BeforeAfter({
             {t.beforeAfter.sub}
           </p>
         </motion.div>
-        <div className="mt-12 grid gap-8 md:grid-cols-2">
-          {cases.map((caseItem) => (
+        {allCases.length > 2 && (
+          <div className="mt-8 flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => scroll(-1)}
+              aria-label="Previous before and after cases"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-blue-700 shadow-sm transition hover:bg-blue-600 hover:text-white"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scroll(1)}
+              aria-label="Next before and after cases"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-blue-700 shadow-sm transition hover:bg-blue-600 hover:text-white"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+        <div
+          ref={scroller}
+          className={`no-scrollbar flex snap-x gap-8 overflow-x-auto pb-4 ${
+            allCases.length > 2 ? "mt-4" : "mt-12"
+          }`}
+        >
+          {allCases.map((caseItem) => (
             <CompareCard
               key={caseItem.id}
               before={caseItem.before}
@@ -166,6 +201,7 @@ export default function BeforeAfter({
               title={caseItem.title}
               desc={caseItem.desc}
               note={t.beforeAfter.note}
+              className="w-[85%] shrink-0 snap-start md:w-[calc((100%_-_2rem)_/_2)]"
               labels={{
                 before: t.beforeAfter.before,
                 after: t.beforeAfter.after,
@@ -174,23 +210,6 @@ export default function BeforeAfter({
             />
           ))}
         </div>
-        {allCases.length > 2 && (
-          <div className="mt-10 flex justify-center">
-            <button
-              type="button"
-              onClick={() => setShowAll((current) => !current)}
-              aria-expanded={showAll}
-              className="btn-outline"
-            >
-              {showAll ? t.beforeAfter.seeLess : t.beforeAfter.seeMore}
-              {showAll ? (
-                <ArrowUp className="h-4 w-4" aria-hidden="true" />
-              ) : (
-                <ArrowDown className="h-4 w-4" aria-hidden="true" />
-              )}
-            </button>
-          </div>
-        )}
       </motion.div>
     </section>
   );

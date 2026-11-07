@@ -2,7 +2,15 @@
 
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import { requireAdmin } from "@/lib/admin";
 import { db } from "@/lib/db";
+
+const appointmentStatusSchema = z.enum([
+  "PENDING",
+  "CONFIRMED",
+  "CANCELLED",
+  "COMPLETED",
+]);
 
 const appointmentSchema = z.object({
   name: z.string().trim().min(1).max(200),
@@ -48,6 +56,31 @@ export async function submitAppointment(input: unknown) {
       email: details.email || null,
       appointmentDate,
     },
+  });
+
+  revalidatePath("/admin/appointments");
+  return { success: true };
+}
+
+export async function setAppointmentStatus(id: string, status: unknown) {
+  await requireAdmin();
+  const parsedId = z.string().trim().min(1).max(100).safeParse(id);
+  const parsedStatus = appointmentStatusSchema.safeParse(status);
+  if (!parsedId.success || !parsedStatus.success) {
+    return { success: false, error: "Choose a valid appointment status." };
+  }
+
+  const appointment = await db.appointmentBooking.findUnique({
+    where: { id: parsedId.data },
+    select: { id: true },
+  });
+  if (!appointment) {
+    return { success: false, error: "Appointment not found." };
+  }
+
+  await db.appointmentBooking.update({
+    where: { id: parsedId.data },
+    data: { status: parsedStatus.data },
   });
 
   revalidatePath("/admin/appointments");

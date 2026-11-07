@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, GalleryHorizontalEnd } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronLeft,
+  ChevronRight,
+  GalleryHorizontalEnd,
+} from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import { fadeUp, stagger } from "@/lib/motion";
 import Modal from "./Modal";
@@ -30,6 +35,7 @@ export default function Gallery({
   items?: GalleryItem[];
 }) {
   const { t, lang } = useI18n();
+  const scroller = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const items =
     publishedItems ??
@@ -51,6 +57,11 @@ export default function Gallery({
   }));
   const localizedActive = selected !== null ? localizedItems[selected] : null;
   if (publishedItems?.length === 0) return null;
+
+  const scroll = (dir: number) => {
+    const element = scroller.current;
+    element?.scrollBy({ left: dir * element.clientWidth, behavior: "smooth" });
+  };
 
   return (
     <section
@@ -82,14 +93,39 @@ export default function Gallery({
           </p>
         </motion.div>
 
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
+        {localizedItems.length > 2 && (
+          <div className="mt-8 flex justify-end gap-2">
+            <button
+              type="button"
+              onClick={() => scroll(-1)}
+              aria-label="Previous gallery items"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-blue-700 shadow-sm transition hover:bg-blue-600 hover:text-white"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => scroll(1)}
+              aria-label="Next gallery items"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-blue-700 shadow-sm transition hover:bg-blue-600 hover:text-white"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        )}
+        <div
+          ref={scroller}
+          className={`no-scrollbar flex snap-x gap-6 overflow-x-auto pb-4 ${
+            localizedItems.length > 2 ? "mt-4" : "mt-12"
+          }`}
+        >
           {localizedItems.map((item, index) => (
             <motion.button
               key={item.id}
               type="button"
               variants={fadeUp}
               onClick={() => setSelected(index)}
-              className="group overflow-hidden rounded-3xl border border-white/70 bg-white/70 text-left shadow-soft backdrop-blur-md transition duration-300 hover:-translate-y-1.5 hover:shadow-glass"
+              className="group w-[calc((100%_-_1.5rem)_/_2)] shrink-0 snap-start overflow-hidden rounded-3xl border border-white/70 bg-white/70 text-left shadow-soft backdrop-blur-md transition duration-300 hover:-translate-y-1.5 hover:shadow-glass lg:w-[calc((100%_-_3rem)_/_3)]"
             >
               <div className="relative overflow-hidden">
                 <Image
