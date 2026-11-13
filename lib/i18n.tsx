@@ -183,7 +183,7 @@ const en = {
     before: "Before",
     after: "After",
     drag: "Drag to compare",
-    note: "Individual treatment plans and outcomes vary.",
+    // note: "Individual treatment plans and outcomes vary.",
     seeMore: "See more surgeries",
     seeLess: "See fewer surgeries",
     cases: [
@@ -430,7 +430,7 @@ const bn: Dict = {
     before: "আগে",
     after: "পরে",
     drag: "তুলনা করতে টানুন",
-    note: "চিকিৎসা পরিকল্পনা ও ফলাফল ব্যক্তিভেদে ভিন্ন।",
+    // note: "চিকিৎসা পরিকল্পনা ও ফলাফল ব্যক্তিভেদে ভিন্ন।",
     seeMore: "আরও সার্জারি দেখুন",
     seeLess: "কম সার্জারি দেখুন",
     cases: [
