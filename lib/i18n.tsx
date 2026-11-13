@@ -99,8 +99,8 @@ const en = {
     heading: "Expert Care for Complex Conditions",
     sub: "Advanced surgical solutions for better function, form and quality of life.",
     viewDetails: "View details",
-    covers: "What it covers",
-    scopeNote: "Scope overview — placeholder content",
+    // covers: "What it covers",
+    // scopeNote: "Scope overview — placeholder content",
     cards: [
       {
         title: "Maxillofacial Surgery",
@@ -183,7 +183,7 @@ const en = {
     before: "Before",
     after: "After",
     drag: "Drag to compare",
-    note: "Individual treatment plans and outcomes vary.",
+    // note: "Individual treatment plans and outcomes vary.",
     seeMore: "See more surgeries",
     seeLess: "See fewer surgeries",
     cases: [
@@ -346,8 +346,8 @@ const bn: Dict = {
     heading: "জটিল রোগে বিশেষজ্ঞ সেবা",
     sub: "উন্নত কার্যক্ষমতা, গঠন ও জীবনমানের জন্য আধুনিক সার্জিকাল সমাধান।",
     viewDetails: "বিস্তারিত দেখুন",
-    covers: "যা অন্তর্ভুক্ত",
-    scopeNote: "পরিসর সারসংক্ষেপ — নমুনা তথ্য",
+    // covers: "যা অন্তর্ভুক্ত",
+    // scopeNote: "পরিসর সারসংক্ষেপ — নমুনা তথ্য",
     cards: [
       {
         title: "ম্যাক্সিলোফেসিয়াল সার্জারি",
@@ -430,7 +430,7 @@ const bn: Dict = {
     before: "আগে",
     after: "পরে",
     drag: "তুলনা করতে টানুন",
-    note: "চিকিৎসা পরিকল্পনা ও ফলাফল ব্যক্তিভেদে ভিন্ন।",
+    // note: "চিকিৎসা পরিকল্পনা ও ফলাফল ব্যক্তিভেদে ভিন্ন।",
     seeMore: "আরও সার্জারি দেখুন",
     seeLess: "কম সার্জারি দেখুন",
     cases: [

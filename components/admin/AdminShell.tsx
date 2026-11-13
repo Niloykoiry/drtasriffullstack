@@ -28,12 +28,12 @@ const links: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/admin/about", label: "About", icon: UserRound },
   { href: "/admin/services", label: "Services", icon: BriefcaseMedical },
   { href: "/admin/before-after", label: "Before & After", icon: Images },
-  { href: "/admin/achievements", label: "Achievements", icon: Trophy },
-  { href: "/admin/publications", label: "Publications", icon: BookOpenText },
+  // { href: "/admin/achievements", label: "Achievements", icon: Trophy },
+  // { href: "/admin/publications", label: "Publications", icon: BookOpenText },
   { href: "/admin/gallery", label: "Gallery", icon: Images },
-  { href: "/admin/blogs", label: "Blog posts", icon: FileText },
-  { href: "/admin/faq", label: "FAQs", icon: CircleHelp },
-  { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
+  // { href: "/admin/blogs", label: "Blog posts", icon: FileText },
+  // { href: "/admin/faq", label: "FAQs", icon: CircleHelp },
+  // { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
   { href: "/admin/media", label: "Media library", icon: FileImage },
   { href: "/admin/settings", label: "Settings", icon: Settings },
 ];
@@ -89,7 +89,9 @@ export default function AdminShell({
       </aside>
       <div className="min-w-0 lg:col-start-2">
         <header className="sticky top-0 z-10 flex h-16 items-center justify-between border-b border-slate-200 bg-white/90 px-5 backdrop-blur sm:px-8">
-          <p className="text-sm font-semibold text-slate-800">Content management</p>
+          <p className="text-sm font-semibold text-slate-800">
+            Content management
+          </p>
           <div className="flex items-center gap-2 text-xs text-slate-500 lg:hidden">
             <span className="max-w-36 truncate">{email}</span>
             <LogoutButton />
