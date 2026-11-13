@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { useI18n } from "@/lib/i18n";
 
-const WHATSAPP_NUMBER = "8801XXXXXXXXX";
+const WHATSAPP_NUMBER = "+8801716200358";
 const MESSENGER_USERNAME = "drtasrifahmed";
 
 export default function FloatingChat() {
